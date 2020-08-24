@@ -15,6 +15,7 @@
 #  #######################################################################
 library(here)
 source(here::here("src","find_champion_bayesian_ss.R"))
+source(here::here("src","find_champion_bayesian_ss_cpt.R"))
 source(here::here("src","parameters.R"))
 
 options(warn = -1,digits = 3,verbose = F,error = NULL)
@@ -58,4 +59,18 @@ res <- find_champion_bayesian_ss(data = case_data_SalesPrime,
 res$champion_model
 res$champion_result
 res$all_model_details
+
+
+#:::::::::::::::::::::::::::::::::::::::::::: test find_champion_bayesian_ss_cpt function
+
+res <- find_champion_bayesian_ss_cpt(data = case_data_SalesPrime,
+                                 agg_timescale = 'Week',
+                                 OOS_start = as.Date('2018-01-01'),
+                                 regressors = regressors_intercept_weekly,
+                                 nr_samples = 50,
+                                 nr_burnin = 0, max_changepoints = 2)
+res$champion_model
+res$champion_result
+res$all_model_details
+res$changepoint_dates
 
